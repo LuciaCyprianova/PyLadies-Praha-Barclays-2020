@@ -45,10 +45,23 @@ def tah_pocitace(pole):
     "Vrátí herní pole se zaznamenaným tahem počítače"
     while True:
         pozice = randrange(20)
-           
-        if pole[pozice] == "-":      
-            pole = tah(pole, pozice, 'o')
-            return pole  
+        if ("-x" in pole) or ("x-" in pole):                       
+            if (pole[pozice] == "-"):
+                if pozice == 0:
+                    if pole[pozice + 1] == 'x':
+                        pole = tah(pole, pozice, 'o')
+                        return pole  
+                elif pozice == 19:
+                    if pole[pozice - 1] =='x':
+                        pole = tah(pole, pozice, 'o')
+                        return pole 
+                elif (pole[pozice - 1] == 'x') or (pole[pozice + 1] == 'x'):        
+                    pole = tah(pole, pozice, 'o')
+                    return pole
+        else:
+            if pole[pozice] == "-":
+                pole = tah(pole, pozice, 'o')
+                return pole             
 
 def piskvorky1d():
     '''vytvoří řetězec s herním polem a střídavě volá funkce tah_hrace a tah_pocitace, 
@@ -70,7 +83,6 @@ def piskvorky1d():
             
         else:
             return stav
-
 
 vysledek = piskvorky1d()
 if vysledek == "x":
