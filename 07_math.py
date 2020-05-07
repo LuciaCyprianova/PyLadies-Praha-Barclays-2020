@@ -42,4 +42,8 @@ if prvocislo:
     print("Číslo {} je prvočíslo".format(n))
 else:
     print("Číslo {} nie je prvočíslo".format(n))
+<<<<<<< HEAD
+=======
+
+>>>>>>> a7ff6e12b733985d7912e2ba590278889d3a38bb
 fibonacci(n)
