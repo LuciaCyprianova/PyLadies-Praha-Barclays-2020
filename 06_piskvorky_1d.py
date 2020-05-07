@@ -1,4 +1,17 @@
-from random import randrange
+def vyhodnotit(pole):
+    '''vyhodnotí stav hry piškôrky
+    vstupom je reťazec obsahujúci znaky 'x', 'o', '-'
+    výstupom je jednoznakový reťazec 'x' (výhra x), 'o' (výhra o), '!'(remíza) alebo '-' (hra pokračuje)
+    '''
+    if 'xxx' in pole:
+        return 'x'
+    elif 'ooo' in pole:
+        return 'o'
+    elif '-' not in pole:
+        return '!'
+    else:
+        return '-'
+
 def tah(pole, umisteni, symbol):
     '''
     vráti herní pole s daným symbolem umístěným na danou pozici
@@ -15,7 +28,6 @@ def tah_hrace(pole):
     volá funkciu tah
     vrátí herní pole se zaznamenaným tahem hráče
         '''
-    print(pole)
     while True:
         pozice = int(input("Na ktorú pozíciu umiestňuješ svoj symbol? "))
         if pozice < 0 or pozice > 19:
@@ -25,20 +37,45 @@ def tah_hrace(pole):
             print("Pozícia", pozice, "je už obsadená, musíš zvoliť voľné miesto.")
            
         else:
-            pole = tah(pole, pozice, symbol)
-            return pole         
+            pole = tah(pole, pozice, 'x')
+            return pole 
 
-
+from random import randrange
 def tah_pocitace(pole):
     "Vrátí herní pole se zaznamenaným tahem počítače"
-    print(pole)
     while True:
         pozice = randrange(20)
            
         if pole[pozice] == "-":      
-            pole = tah(pole, pozice, symbol)
+            pole = tah(pole, pozice, 'o')
             return pole  
 
-pole = "---oxxo---xo--------"
-symbol = "o"
-print("Ťahá počítač: \n", tah_pocitace(pole))
+def piskvorky1d():
+    '''vytvoří řetězec s herním polem a střídavě volá funkce tah_hrace a tah_pocitace, 
+    dokud někdo nevyhraje nebo nedojde k remíze
+    Kontroluje stav hry po každém tahu
+    '''
+    pole = "-" * 20
+    print(pole)
+    while True:
+        stav = vyhodnotit(pole)
+        if stav == '-':         
+            pole = tah_hrace(pole)
+            print(pole)
+            stav = vyhodnotit(pole)
+            if stav == '-':
+                pole = tah_pocitace(pole)
+                print("Ťahá počítač:")
+                print(pole)
+            
+        else:
+            return stav
+
+
+vysledek = piskvorky1d()
+if vysledek == "x":
+    print("Gratulujem, vyhral si!")
+elif vysledek == "o":
+    print("Smola, tentokrát vyhral počítač")
+else:
+    print("Remíza!")
