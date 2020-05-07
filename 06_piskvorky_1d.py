@@ -40,7 +40,6 @@ def tah_hrace(pole):
             pole = tah(pole, pozice, 'x')
             return pole 
 
-from random import randrange
 def tah_pocitace(pole):
     "Vrátí herní pole se zaznamenaným tahem počítače"
     while True:
@@ -53,7 +52,6 @@ def tah_pocitace(pole):
         elif ("oo-") in pole:
             pole = pole.replace("oo-", "ooo")
             return pole
-
         elif ("-xx") in pole:
             pole = pole.replace("-xx", "oxx")
             return pole
@@ -63,14 +61,12 @@ def tah_pocitace(pole):
         elif ("xx-") in pole:
             pole = pole.replace("xx-", "xxo")
             return pole
-
         elif ("o-") in pole:
             pole = pole.replace("o-", "oo")
             return pole
         elif ("-o") in pole:
             pole = pole.replace("-o", "oo") 
-            return pole
-        
+            return pole        
         elif ("x-") in pole:
             pole = pole.replace("x-", "xo")
             return pole
