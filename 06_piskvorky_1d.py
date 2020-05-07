@@ -44,24 +44,43 @@ from random import randrange
 def tah_pocitace(pole):
     "Vrátí herní pole se zaznamenaným tahem počítače"
     while True:
-        pozice = randrange(20)
-        if ("-x" in pole) or ("x-" in pole):                       
-            if (pole[pozice] == "-"):
-                if pozice == 0:
-                    if pole[pozice + 1] == 'x':
-                        pole = tah(pole, pozice, 'o')
-                        return pole  
-                elif pozice == 19:
-                    if pole[pozice - 1] =='x':
-                        pole = tah(pole, pozice, 'o')
-                        return pole 
-                elif (pole[pozice - 1] == 'x') or (pole[pozice + 1] == 'x'):        
-                    pole = tah(pole, pozice, 'o')
-                    return pole
+        if ("-oo") in pole:
+            pole = pole.replace("-oo", "ooo")
+            return pole
+        elif ("o-o") in pole:
+            pole = pole.replace("o-o", "ooo")
+            return pole
+        elif ("oo-") in pole:
+            pole = pole.replace("oo-", "ooo")
+            return pole
+
+        elif ("-xx") in pole:
+            pole = pole.replace("-xx", "oxx")
+            return pole
+        elif ("x-x") in pole:
+            pole = pole.replace("x-x", "xox")
+            return pole
+        elif ("xx-") in pole:
+            pole = pole.replace("xx-", "xxo")
+            return pole
+
+        elif ("o-") in pole:
+            pole = pole.replace("o-", "oo")
+            return pole
+        elif ("-o") in pole:
+            pole = pole.replace("-o", "oo") 
+            return pole
+        
+        elif ("x-") in pole:
+            pole = pole.replace("x-", "xo")
+            return pole
+        elif ("-x") in pole:
+            pole = pole.replace("-x", "ox")
+            return pole
         else:
-            if pole[pozice] == "-":
-                pole = tah(pole, pozice, 'o')
-                return pole             
+            pozice = pole.index("-")
+            pole = tah(pole, pozice, "o")
+            return pole
 
 def piskvorky1d():
     '''vytvoří řetězec s herním polem a střídavě volá funkce tah_hrace a tah_pocitace, 
