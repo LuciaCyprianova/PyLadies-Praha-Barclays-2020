@@ -1,3 +1,4 @@
+from random import randrange
 def tah(pole, umisteni, symbol):
     '''
     vráti herní pole s daným symbolem umístěným na danou pozici
@@ -28,6 +29,16 @@ def tah_hrace(pole):
             return pole         
 
 
+def tah_pocitace(pole):
+    "Vrátí herní pole se zaznamenaným tahem počítače"
+    print(pole)
+    while True:
+        pozice = randrange(20)
+           
+        if pole[pozice] == "-":      
+            pole = tah(pole, pozice, symbol)
+            return pole  
+
 pole = "---oxxo---xo--------"
-symbol = "x"
-print(tah_hrace(pole))
+symbol = "o"
+print("Ťahá počítač: \n", tah_pocitace(pole))
