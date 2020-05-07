@@ -6,4 +6,28 @@ def tah(pole, umisteni, symbol):
     pole = pole[:umisteni] + symbol + pole[umisteni + 1:]
     return pole
 
-print(tah("----------", 2, "x"))
+def tah_hrace(pole):
+    '''
+    vstupem je herní pole (řetezec)
+    zeptá se hráče, na kterou pozici chce hrát
+    ověří proveditelnost operace - daná pozice existuje a ještě není zabraná
+    volá funkciu tah
+    vrátí herní pole se zaznamenaným tahem hráče
+        '''
+    print(pole)
+    while True:
+        pozice = int(input("Na ktorú pozíciu umiestňuješ svoj symbol? "))
+        if pozice < 0 or pozice > 19:
+            print("Zadaj pozíciu od 0 do 19. Na políčko", pozice, "svoj symbol umiestniť nemôžeš.")
+            
+        elif pole[pozice] != "-":
+            print("Pozícia", pozice, "je už obsadená, musíš zvoliť voľné miesto.")
+           
+        else:
+            pole = tah(pole, pozice, symbol)
+            return pole         
+
+
+pole = "---oxxo---xo--------"
+symbol = "x"
+print(tah_hrace(pole))
