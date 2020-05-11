@@ -28,50 +28,54 @@ def tah_hrace(pole):
     volá funkciu tah
     vrátí herní pole se zaznamenaným tahem hráče
         '''
-    while True:
-        pozice = int(input("Na ktorú pozíciu umiestňuješ svoj symbol? "))
-        if pozice < 0 or pozice > 19:
-            print("Zadaj pozíciu od 0 do 19. Na políčko", pozice, "svoj symbol umiestniť nemôžeš.")
-            
-        elif pole[pozice] != "-":
-            print("Pozícia", pozice, "je už obsadená, musíš zvoliť voľné miesto.")
-           
+    while True:        
+        try:
+            pozice = int(input("Na ktorú pozíciu umiestňuješ svoj symbol? "))      
+        except ValueError: 
+            print("Musíš zadať číslo!")            
         else:
-            pole = tah(pole, pozice, 'x')
-            return pole 
+            if pozice < 0 or pozice > 19:
+                print("Zadaj pozíciu od 0 do 19. Na políčko", pozice, "svoj symbol umiestniť nemôžeš.")
+                
+            elif pole[pozice] != "-":
+                print("Pozícia", pozice, "je už obsadená, musíš zvoliť voľné miesto.")
+            
+            else:
+                pole = tah(pole, pozice, 'x')
+                return pole 
 
 def tah_pocitace(pole):
     "Vrátí herní pole se zaznamenaným tahem počítače"
     while True:
         if ("-oo") in pole:
-            pole = pole.replace("-oo", "ooo")
+            pole = pole.replace("-oo", "ooo", 1)
             return pole
         elif ("o-o") in pole:
-            pole = pole.replace("o-o", "ooo")
+            pole = pole.replace("o-o", "ooo", 1)
             return pole
         elif ("oo-") in pole:
-            pole = pole.replace("oo-", "ooo")
+            pole = pole.replace("oo-", "ooo", 1)
             return pole
         elif ("-xx") in pole:
-            pole = pole.replace("-xx", "oxx")
+            pole = pole.replace("-xx", "oxx", 1)
             return pole
         elif ("x-x") in pole:
-            pole = pole.replace("x-x", "xox")
+            pole = pole.replace("x-x", "xox", 1)
             return pole
         elif ("xx-") in pole:
-            pole = pole.replace("xx-", "xxo")
+            pole = pole.replace("xx-", "xxo", 1)
             return pole
         elif ("o-") in pole:
-            pole = pole.replace("o-", "oo")
+            pole = pole.replace("o-", "oo", 1)
             return pole
         elif ("-o") in pole:
-            pole = pole.replace("-o", "oo") 
+            pole = pole.replace("-o", "oo", 1) 
             return pole        
         elif ("x-") in pole:
-            pole = pole.replace("x-", "xo")
+            pole = pole.replace("x-", "xo", 1)
             return pole
         elif ("-x") in pole:
-            pole = pole.replace("-x", "ox")
+            pole = pole.replace("-x", "ox", 1)
             return pole
         else:
             pozice = pole.index("-")
