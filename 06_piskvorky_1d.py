@@ -91,17 +91,18 @@ def piskvorky1d():
     print(pole)
     while True:
         stav = vyhodnotit(pole)
-        if stav == '-':         
+        if stav != '-':
+            break
+        else:
             pole = tah_hrace(pole)
             print(pole)
             stav = vyhodnotit(pole)
-            if stav == '-':
-                pole = tah_pocitace(pole)
-                print("Ťahá počítač:")
-                print(pole)
-            
-        else:
-            return stav
+            if stav != '-':
+                break        
+            pole = tah_pocitace(pole)
+            print("Ťahá počítač:")
+            print(pole)    
+    return stav       
 
 vysledek = piskvorky1d()
 if vysledek == "x":
