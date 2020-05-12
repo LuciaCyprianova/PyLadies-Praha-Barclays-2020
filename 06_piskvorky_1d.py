@@ -46,41 +46,40 @@ def tah_hrace(pole):
 
 def tah_pocitace(pole):
     "Vrátí herní pole se zaznamenaným tahem počítače"
-    while True:
-        if ("-oo") in pole:
-            pole = pole.replace("-oo", "ooo", 1)
-            return pole
-        elif ("o-o") in pole:
-            pole = pole.replace("o-o", "ooo", 1)
-            return pole
-        elif ("oo-") in pole:
-            pole = pole.replace("oo-", "ooo", 1)
-            return pole
-        elif ("-xx") in pole:
-            pole = pole.replace("-xx", "oxx", 1)
-            return pole
-        elif ("x-x") in pole:
-            pole = pole.replace("x-x", "xox", 1)
-            return pole
-        elif ("xx-") in pole:
-            pole = pole.replace("xx-", "xxo", 1)
-            return pole
-        elif ("o-") in pole:
-            pole = pole.replace("o-", "oo", 1)
-            return pole
-        elif ("-o") in pole:
-            pole = pole.replace("-o", "oo", 1) 
-            return pole        
-        elif ("x-") in pole:
-            pole = pole.replace("x-", "xo", 1)
-            return pole
-        elif ("-x") in pole:
-            pole = pole.replace("-x", "ox", 1)
-            return pole
-        else:
-            pozice = pole.index("-")
-            pole = tah(pole, pozice, "o")
-            return pole
+    if ("-oo") in pole:
+        pole = pole.replace("-oo", "ooo", 1)
+        return pole
+    elif ("o-o") in pole:
+        pole = pole.replace("o-o", "ooo", 1)
+        return pole
+    elif ("oo-") in pole:
+        pole = pole.replace("oo-", "ooo", 1)
+        return pole
+    elif ("-xx") in pole:
+        pole = pole.replace("-xx", "oxx", 1)
+        return pole
+    elif ("x-x") in pole:
+        pole = pole.replace("x-x", "xox", 1)
+        return pole
+    elif ("xx-") in pole:
+        pole = pole.replace("xx-", "xxo", 1)
+        return pole
+    elif ("o-") in pole:
+        pole = pole.replace("o-", "oo", 1)
+        return pole
+    elif ("-o") in pole:
+        pole = pole.replace("-o", "oo", 1) 
+        return pole        
+    elif ("x-") in pole:
+        pole = pole.replace("x-", "xo", 1)
+        return pole
+    elif ("-x") in pole:
+        pole = pole.replace("-x", "ox", 1)
+        return pole
+    else:
+        pozice = pole.index("-")
+        pole = tah(pole, pozice, "o")
+        return pole
 
 def piskvorky1d():
     '''vytvoří řetězec s herním polem a střídavě volá funkce tah_hrace a tah_pocitace, 
