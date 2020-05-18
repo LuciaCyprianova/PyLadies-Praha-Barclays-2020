@@ -1,3 +1,4 @@
+import random
 def vyhodnotit(pole):
     '''vyhodnotí stav hry piškôrky
     vstupom je reťazec obsahujúci znaky 'x', 'o', '-'
@@ -44,42 +45,74 @@ def tah_hrace(pole):
                 pole = tah(pole, pozice, 'x')
                 return pole 
 
-def tah_pocitace(pole):
+def tah_pocitace(pole, symbol):
     "Vrátí herní pole se zaznamenaným tahem počítače"
-    if ("-oo") in pole:
-        pole = pole.replace("-oo", "ooo", 1)
-        return pole
-    elif ("o-o") in pole:
-        pole = pole.replace("o-o", "ooo", 1)
-        return pole
-    elif ("oo-") in pole:
-        pole = pole.replace("oo-", "ooo", 1)
-        return pole
-    elif ("-xx") in pole:
-        pole = pole.replace("-xx", "oxx", 1)
-        return pole
-    elif ("x-x") in pole:
-        pole = pole.replace("x-x", "xox", 1)
-        return pole
-    elif ("xx-") in pole:
-        pole = pole.replace("xx-", "xxo", 1)
-        return pole
-    elif ("o-") in pole:
-        pole = pole.replace("o-", "oo", 1)
-        return pole
-    elif ("-o") in pole:
-        pole = pole.replace("-o", "oo", 1) 
-        return pole        
-    elif ("x-") in pole:
-        pole = pole.replace("x-", "xo", 1)
-        return pole
-    elif ("-x") in pole:
-        pole = pole.replace("-x", "ox", 1)
-        return pole
+    o = symbol
+    if o == 'o':
+        x = 'x'
     else:
-        pozice = pole.index("-")
-        pole = tah(pole, pozice, "o")
+        x = 'o'
+    pocet_prazdnych = pole.count("-")
+
+    if (f"-{o}{o}") in pole:
+        pole = pole.replace(f"-{o}{o}", f"{o}{o}{o}", 1)
         return pole
+    elif (f"{o}-{o}") in pole:
+        pole = pole.replace(f"{o}-{o}", f"{o}{o}{o}", 1)
+        return pole
+    elif (f"{o}{o}-") in pole:
+        pole = pole.replace(f"{o}{o}-", f"{o}{o}{o}", 1)
+        return pole
+
+    elif (f"-{x}{x}") in pole:
+        pole = pole.replace(f"-{x}{x}", f"{o}{x}{x}", 1)
+        return pole
+    elif (f"{x}-{x}") in pole:
+        pole = pole.replace(f"{x}-{x}", f"{x}{o}{x}", 1)
+        return pole
+    elif (f"{x}{x}-") in pole:
+        pole = pole.replace(f"{x}{x}-", f"{x}{x}{o}", 1)
+        return pole
+    
+    elif (f"-{o}--") in pole:
+        pole = pole.replace(f"-{o}--", f"-{o}{o}-", 1)
+        return pole
+    elif (f"--{o}-") in pole:
+        pole = pole.replace(f"--{o}-", f"-{o}{o}-", 1)
+        return pole
+
+    elif (f"-{x}--") in pole:
+        pole = pole.replace(f"-{x}--", f"-{x}{o}-", 1)
+        return pole
+    elif (f"--{x}-") in pole:
+        pole = pole.replace(f"--{x}-", f"-{o}{x}-", 1)
+        return pole
+
+    elif (f"-{o}-") in pole:
+        pole = pole.replace(f"-{o}-", f"{o}{o}-", 1)
+        return pole
+    elif (f"{o}--") in pole:
+        pole = pole.replace(f"{o}--", f"{o}{o}-", 1)
+        return pole
+    elif (f"--{o}") in pole:
+        pole = pole.replace(f"--{o}", f"-{o}{o}", 1)
+        return pole
+
+    elif ("-") not in pole:
+        raise ValueError('hracie pole je plné!')
+
+    elif 4 < pocet_prazdnych <= len(pole):
+        while True:
+            pozice = random.randrange(2, len(pole) - 2)
+            if pole[pozice] == '-':
+                pole = tah(pole, pozice, o) 
+                return pole
+    else:
+        while True:
+            pozice = random.randrange(len(pole))
+            if pole[pozice] == '-':
+                pole = tah(pole, pozice, o) 
+                return pole
 
 def piskvorky1d():
     '''vytvoří řetězec s herním polem a střídavě volá funkce tah_hrace a tah_pocitace, 
@@ -98,7 +131,7 @@ def piskvorky1d():
             stav = vyhodnotit(pole)
             if stav != '-':
                 break        
-            pole = tah_pocitace(pole)
+            pole = tah_pocitace(pole, "o")
             print("Ťahá počítač:")
             print(pole)    
     return stav       
